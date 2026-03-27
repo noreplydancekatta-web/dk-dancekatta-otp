@@ -1,11 +1,10 @@
+// server.js
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-console.log("🔍 Render OTP backend starting... DB connection string loaded.");
-
-
+console.log("🔍 OTP backend starting...");
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -14,28 +13,27 @@ const PORT = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
-// ------------------ MongoDB Setup ------------------
+// ------------------ MongoDB ------------------
 mongoose
-  .connect(process.env.MONGO_URI, {
-  })
-  .then(() => console.log("✅ MongoDB connected (Render)"))
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err.message));
 
-// ------------------ OTP Routes ------------------
+// ------------------ Routes ------------------
 const userOtpRoutes = require("./user_otps");
-app.use("/api/user", userOtpRoutes); // only OTP auth logic
+app.use("/api/user", userOtpRoutes);
 
 // ------------------ Health Check ------------------
 app.get("/", (req, res) => {
   res.send("OTP Service is Running 🔑");
 });
 
-// ------------------ Catch-all 404 ------------------
+// ------------------ 404 ------------------
 app.use((req, res) => {
-  res.status(404).json({ message: "Route not found in OTP backend" });
+  res.status(404).json({ message: "Route not found" });
 });
 
-// ------------------ Start Server ------------------
+// ------------------ Start ------------------
 app.listen(PORT, () => {
   console.log(`🚀 OTP Backend running on http://localhost:${PORT}`);
 });
