@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 
 // ✅ User Model
-const User = require('../models/User');
+const User = require('./User');
 
 // ✅ OTP User Schema
 const OTPUser = mongoose.models.OTPUser || mongoose.model('OTPUser', new mongoose.Schema({
