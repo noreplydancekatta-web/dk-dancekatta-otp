@@ -22,6 +22,8 @@ mongoose
 // ------------------ Routes ------------------
 const userOtpRoutes = require("./user_otps");
 app.use("/api/user", userOtpRoutes);
+const signupRoutes = require('./signup_otps');
+app.use('/api/signup', signupRoutes);
 
 // ------------------ Health Check ------------------
 app.get("/", (req, res) => {
